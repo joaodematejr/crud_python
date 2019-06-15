@@ -25,17 +25,32 @@ menuEscolha = (input('*' * 3 +
 
 if menuEscolha == '1':
     print('*' * 3 + ' Cadastro Telefone ' + '*' * 18)
+
+    ''' ENTRADA DO NOME '''
+
     userNome = str(input('Digite um nome [minimo 4 caracteres]: '))
     while len(userNome) <= 3:
         userNome = str(input('O nome deve ter mais que 3 caracteres: '))
 
-    '''  Verificar se a pessoa não digitou numero no nome     '''
+    ''' VERIFICAR SE A PESSOA NÃO DIGITOU NUMERO NO NOME E MENOR QUE 3 '''
 
     while userNome.isdigit() == True or len(userNome) <= 3:
         userNome = str(input('Idiota !!! aonde já se viu nome com numero :'))
 
-    print(userNome.isdigit())
+    ''' ENTRADA DO TELEFONE '''
 
+    userTel = list(input('Digite o telefone com 11 digitos : [XXXXXXXXXX]: '))
+
+    ''' VERIFICAR SE O TELEFONE TEM 11 DIGITOS E NÃO DIGITOU LETRAS '''
+
+    while len(userTel) != 11:
+        userTel = list(input('Tel Precisa ter 11 digitos: [XXXXXXXXXX]: '))
+    for i in range(0, len(userTel)):
+        try:
+            userTel[i] = int(userTel[i])
+        except ValueError:
+            print("Este não é um número inteiro.")
+        break
 elif menuEscolha == '2':
     print('Listar Telefones')
 elif menuEscolha == '3':
