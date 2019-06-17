@@ -49,8 +49,17 @@ if menuEscolha == '1':
         try:
             userTel[i] = int(userTel[i])
         except ValueError:
-            print("Este não é um número inteiro.")
+            print("Telefone Invalido estamos encerrando o programa !!!")
         break
+        ''' PEGAR 0 POSIÇÃO E COLOCAR ( '''
+        userTel.insert(0, "(")
+        ''' PEGAR 3 POSIÇÃO E COLOCAR ) '''
+        userTel.insert(3, ")")
+        ''' PEGAR 9 POSIÇÃO E COLOCAR - ) '''
+        userTel.insert(9, "-")
+        ''' CONVERTER TELEFONE PARA STRING '''
+        converterTelefoneString = ''.join(map(str, userTel))
+        print('Nome : ' + userNome + ' Telefone :', converterTelefoneString)
 elif menuEscolha == '2':
     print('Listar Telefones')
 elif menuEscolha == '3':
