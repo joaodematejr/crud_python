@@ -48,9 +48,11 @@ if menuEscolha == '1':
     for i in range(0, len(userTel)):
         try:
             userTel[i] = int(userTel[i])
+            statusDaConversao = True
         except ValueError:
-            print("Telefone Invalido estamos encerrando o programa !!!")
-        break
+            statusDaConversao = False
+            break
+    if statusDaConversao == True:
         ''' PEGAR 0 POSIÇÃO E COLOCAR ( '''
         userTel.insert(0, "(")
         ''' PEGAR 3 POSIÇÃO E COLOCAR ) '''
@@ -59,19 +61,23 @@ if menuEscolha == '1':
         userTel.insert(9, "-")
         ''' CONVERTER TELEFONE PARA STRING '''
         converterTelefoneString = ''.join(map(str, userTel))
-        print('Nome : ' + userNome + ' Telefone :', converterTelefoneString)
+        ''' SALVAR AGENDA EM TXT '''
+        agendaEmTexto = open('lista_telefônica.txt', 'a')
+        documento = userNome + converterTelefoneString + '\n'
+        agendaEmTexto.write(documento)
+        agendaEmTexto.close()
+        print("Documento Salvo Com Sucesso !!!!")
+    else:
+        print("Telefone Invalido estamos encerrando o programa !!!")
 elif menuEscolha == '2':
-    print('Listar Telefones')
+    ''' LOCALIZAR AQUIVO, ABRIR LER E EXIBIR NA TELA '''
+    arquivoAgenda = open('lista_telefônica.txt', 'r')
+    texto = arquivoAgenda.read()
+    print(texto)
+    arquivoAgenda.close()
 elif menuEscolha == '3':
     print('Apagar Telefone')
 elif menuEscolha == '0':
     print('Sair')
 else:
     print('Erro')
-
-
-# RASCUNHOS
-
-
-'''     agenda = []
-    agenda.append({'nome': userNome}) '''
