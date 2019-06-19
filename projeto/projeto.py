@@ -1,4 +1,5 @@
 import datetime
+import os.path
 
 horaAtualComputador = datetime.datetime.now()
 
@@ -11,7 +12,7 @@ print('* Aluno: João Edemar Dematé Junior', ' '*3, '*')
 print('* Disciplina: Lógica Computacional', ' '*3, '*')
 print(f'* Data Atual: {data}', ' '*13, '*')
 print(f'* Hora Atual: {hora}                    *')
-print('* Aluno: João Edemar Dematé Junior', ' '*3, '*')
+print('* Prof: Robertinho', ' '*19, '*')
 print('* Python', ' '*29, '*')
 print('*', ' ' * 36, '*')
 print('*' * 40)
@@ -25,24 +26,16 @@ menuEscolha = (input('*' * 3 +
 
 if menuEscolha == '1':
     print('*' * 3 + ' Cadastro Telefone ' + '*' * 18)
-
     ''' ENTRADA DO NOME '''
-
     userNome = str(input('Digite um nome [minimo 4 caracteres]: '))
     while len(userNome) <= 3:
         userNome = str(input('O nome deve ter mais que 3 caracteres: '))
-
     ''' VERIFICAR SE A PESSOA NÃO DIGITOU NUMERO NO NOME E MENOR QUE 3 '''
-
     while userNome.isdigit() == True or len(userNome) <= 3:
         userNome = str(input('Idiota !!! aonde já se viu nome com numero :'))
-
     ''' ENTRADA DO TELEFONE '''
-
     userTel = list(input('Digite o telefone com 11 digitos : [XXXXXXXXXX]: '))
-
     ''' VERIFICAR SE O TELEFONE TEM 11 DIGITOS E NÃO DIGITOU LETRAS '''
-
     while len(userTel) != 11:
         userTel = list(input('Tel Precisa ter 11 digitos: [XXXXXXXXXX]: '))
     for i in range(0, len(userTel)):
@@ -70,14 +63,32 @@ if menuEscolha == '1':
     else:
         print("Telefone Invalido estamos encerrando o programa !!!")
 elif menuEscolha == '2':
+    print('*' * 3 + ' Lista Telefones ' + '*' * 20)
     ''' LOCALIZAR AQUIVO, ABRIR LER E EXIBIR NA TELA '''
-    arquivoAgenda = open('lista_telefônica.txt', 'r')
-    texto = arquivoAgenda.read()
-    print(texto)
-    arquivoAgenda.close()
+    verificar = os.path.isfile('lista_telefônica.txt')
+    if verificar == False:
+        print('Arquivo não localizado !!!')
+    else:
+        arquivoAgenda = open('lista_telefônica.txt', 'r')
+        texto = arquivoAgenda.read()
+        print(texto)
+        arquivoAgenda.close()
 elif menuEscolha == '3':
-    print('Apagar Telefone')
+    print('*' * 3 + ' Apagar Telefone ' + '*' * 20)
+    ''' LOCALIZAR AQUIVO, ABRIR LER E EXIBIR NA TELA E DELETAR '''
+    verificar = os.path.isfile('lista_telefônica.txt')
+    if verificar == False:
+        print('Arquivo não localizado !!!')
+    else:
+        arquivoAgenda = open('lista_telefônica.txt', 'r')
+        textoAserExibido = arquivoAgenda.read()
+        print(textoAserExibido)
+        linhas = arquivoAgenda.readlines()
+        for linha in linhas:
+            if 'João' not in linha:
+                print()
+        arquivoAgenda.close()
 elif menuEscolha == '0':
-    print('Sair')
+    print('Programa encerrado com Sucesso !!!')
 else:
     print('Erro')
