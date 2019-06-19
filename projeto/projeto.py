@@ -81,12 +81,20 @@ elif menuEscolha == '3':
         print('Arquivo não localizado !!!')
     else:
         arquivoAgenda = open('lista_telefônica.txt', 'r')
-        textoAserExibido = arquivoAgenda.read()
-        print(textoAserExibido)
-        linhas = arquivoAgenda.readlines()
-        for linha in linhas:
-            if 'João' not in linha:
-                print()
+        texto = arquivoAgenda.read()
+        print(texto)
+        nome = str(input('Digite o nome da Pessoa para Excluir : '))
+        if nome == '':
+            print('Nome Vazio, você precisa preencher com um nome')
+        else:
+            confirmacao = int(input('Digite 1 para confirmar a exclusão do ' +
+                                    nome + ' da sua agenda ou digite 0 para sair : '))
+            if confirmacao == 1:
+                for linha in open('lista_telefônica.txt'):
+                    if nome not in linha:
+                        print(linha)
+            else:
+                print('Operação cancelada')
         arquivoAgenda.close()
 elif menuEscolha == '0':
     print('Programa encerrado com Sucesso !!!')
