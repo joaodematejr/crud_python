@@ -1,7 +1,9 @@
 import datetime
 import os.path
+import webbrowser
 
 horaAtualComputador = datetime.datetime.now()
+''' webbrowser.open('https://pt.stackoverflow.com/admin.php', new=0, autoraise=False) '''
 
 data = horaAtualComputador.strftime("%d/%m/%Y")
 hora = horaAtualComputador.strftime("%H:%M")
@@ -60,6 +62,14 @@ if menuEscolha == '1':
         agendaEmTexto.write(documento)
         agendaEmTexto.close()
         print("Documento Salvo Com Sucesso !!!!")
+        ''' FAZER BACKUP DA LISTA '''
+        arquivoAntigo = open('lista_telefônica.txt', 'r')
+        arquivoNovo = open('backup_lista_telefônica.txt', 'w')
+        for linhas in arquivoAntigo:
+            arquivoNovo.write(linhas)
+        arquivoAntigo.close()
+        arquivoNovo.close()
+        print("Backup realizado com Sucesso")
     else:
         print("Telefone Invalido estamos encerrando o programa !!!")
 elif menuEscolha == '2':
@@ -90,9 +100,22 @@ elif menuEscolha == '3':
             confirmacao = int(input('Digite 1 para confirmar a exclusão do ' +
                                     nome + ' da sua agenda ou digite 0 para sair : '))
             if confirmacao == 1:
-                for linha in open('lista_telefônica.txt'):
+                ''' NOVA LISTA AONDE SERAO ARMAZENADO A NOVA LISTAGEM DE CONTATOS '''
+                novaListaContatos = []
+                '''  PERCORRENDO O ARQUIVO E REMOVENDO O CONTATO SELECIONADO  '''
+                for linha in open('lista_telefônica.txt', 'r'):
                     if nome not in linha:
-                        print(linha)
+                        '''  ADICIONANDO NA NOVA LISTA TODOS OS CONTATOS QUE NÃO FORAM REMOVIDOS  '''
+                        novaListaContatos.append(linha)
+                '''  LENDO O ARQUIVO  '''
+                agendaEmTexto = open('lista_telefônica.txt', 'w')
+                '''  CONVERTENDO A LISTA PARA STRING PARA PODER SALVAR  '''
+                converterAgendaString = ''.join(map(str, novaListaContatos))
+                '''  ESCREVENDO NO ARQUIVO COM NOVA LISTA  '''
+                agendaEmTexto.write(converterAgendaString)
+                '''  FECHANDO O ARQUIVO   '''
+                agendaEmTexto.close()
+                print('Usuario ' + nome + ' Removido com Sucesso')
             else:
                 print('Operação cancelada')
         arquivoAgenda.close()
